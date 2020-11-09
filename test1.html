@@ -5,6 +5,7 @@
     <title>Web Bluetooth</title>
 </head>
 <body>
+    <script>
     // Scan
     const SERVICE_UUID = 0x180f;
     navigator.bluetooth.requestDevice({
@@ -12,5 +13,6 @@
             name: 'Blank',
         }]
     })
+    </script>
 </body>
 </html>
