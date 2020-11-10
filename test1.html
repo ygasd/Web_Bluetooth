@@ -5,10 +5,11 @@
     <title>Web Bluetooth</title>
     <script>
 	    function scan(){
-		    navigator.bluetooth.requestDevice({ acceptAllDevices:true })
-			    .catch(error => console.log(error));
-		    alert("push");
-	    }
+		navigator.bluetooth.requestDevice({
+  			filters: [{
+    				name: 'Blank',
+  			}]
+		})
     </script>
 </head>
 <body>
