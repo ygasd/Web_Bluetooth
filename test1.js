@@ -6,6 +6,7 @@ function scan(){
       //name: 'Blank',
     //}]
   //})
-  navigator.bluetooth.requestDevice({ acceptAllDevices:true })
-    .catch(error => console.log(error));
+  //navigator.bluetooth.requestDevice({ acceptAllDevices:true })
+    //.catch(error => console.log(error));
+  log('Requesting Bluetooth Device...');
 }
