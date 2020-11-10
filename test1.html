@@ -5,7 +5,8 @@
     <title>Web Bluetooth</title>
     <script>
 	    function scan(){
-		    log('Requesting Bluetooth Device...');
+		    navigator.bluetooth.requestDevice({ acceptAllDevices:true })
+			    .catch(error => console.log(error));
 		    alert("push");
 	    }
     </script>
