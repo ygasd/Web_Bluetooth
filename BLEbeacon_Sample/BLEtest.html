@@ -20,7 +20,7 @@ limitations under the License.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sample illustrating the use of Web Bluetooth / Scanning.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>Web Bluetooth / Scanning Sample</title>
     <script>
       // Add a global error event listener early on in the page load, to help ensure that browsers
@@ -33,36 +33,12 @@ limitations under the License.
         }
       });
     </script>
-    
-    
-    
-    
-    <link rel="icon" href="icon.png">
-    
-    <link rel="stylesheet" href="../styles/main.css">
-    
-    
+
   </head>
 
   <body>
-    <img class="pageIcon" src="icon.png">
     <h1>Web Bluetooth / Scanning Sample</h1>
-    <p class="availability">
-      Available in <a target="_blank" href="https://www.chromestatus.com/feature/5346724402954240">Chrome 79+</a> |
-      <a target="_blank" href="https://github.com/googlechrome/samples/blob/gh-pages/web-bluetooth/scan.html">View on GitHub</a> |
-      <a  href="index.html">Browse Samples</a>
-    </p>
-    <p>The <a href="https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web">Web Bluetooth
-  API</a> lets websites discover and communicate with devices over the
-Bluetooth 4 wireless standard using the Generic Attribute Profile (GATT). It is
-currently partially implemented in Android M, Chrome OS, Mac, and Windows 10.</p>
-
-<script>
-  if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
-  }
-</script>
-
+    
 <script>
   window.addEventListener('DOMContentLoaded', function() {
     const searchParams = new URL(location).searchParams;
@@ -169,8 +145,8 @@ flag enabled.</p>
 
 
 
-  
-    
+
+
       <script>async function onButtonClick() {
   let filters = [];
 
@@ -240,14 +216,14 @@ const logDataView = (labelOfDataSource, key, valueDataView) => {
       '\n    (ASCII) ' + asciiString);
 };
 </script>
-    
-  
 
-  
+
+
+
     <h3>JavaScript Snippet</h3>
-  
 
-  
+
+
     <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">async</span> <span class="kd">function</span> <span class="nx">onButtonClick</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">let</span> <span class="nx">filters</span> <span class="o">=</span> <span class="p">[];</span>
 
@@ -316,7 +292,7 @@ const logDataView = (labelOfDataSource, key, valueDataView) => {
       <span class="dl">'</span><span class="se">\n</span><span class="s1">    (Hex) </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">hexString</span> <span class="o">+</span>
       <span class="dl">'</span><span class="se">\n</span><span class="s1">    (ASCII) </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">asciiString</span><span class="p">);</span>
 <span class="p">};</span></code></pre></figure>
-  
+
 
 
 
@@ -347,7 +323,7 @@ const logDataView = (labelOfDataSource, key, valueDataView) => {
 </script>
 
 
-    
+
     <script>
       /* jshint ignore:start */
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
