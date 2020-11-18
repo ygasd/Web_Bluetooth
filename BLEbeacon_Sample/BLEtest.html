@@ -144,33 +144,33 @@ limitations under the License.
       <script>async function onButtonClick() {
   let filters = [];
 
-  let filterName = document.querySelector('#name').value;
-  if (filterName) {
-    filters.push({name: filterName});
-  }
+  filters.push({manufacturerData: {0x004C: {dataPrefix: new Uint8Array([
+    0x02, 0x15, // iBeacon identifier.
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15  // My beacon UUID.
+  ])}}});
 
-  let filterNamePrefix = document.querySelector('#namePrefix').value;
-  if (filterNamePrefix) {
-    filters.push({namePrefix: filterNamePrefix});
-  }
+  //let filterName = document.querySelector('#name').value;
+  //if (filterName) {
+  //  filters.push({name: filterName});
+  //}
+
+  //let filterNamePrefix = document.querySelector('#namePrefix').value;
+  //if (filterNamePrefix) {
+  //  filters.push({namePrefix: filterNamePrefix});
+  //}
 
   let options = {};
-  if (document.querySelector('#allAdvertisements').checked) {
-    options.acceptAllAdvertisements = true;
-  } else {
+  //if (document.querySelector('#allAdvertisements').checked) {
+  //  options.acceptAllAdvertisements = true;
+  //} else {
     options.filters = filters;
-  }
+  //}
 
   try {
     log('Requesting Bluetooth Scan with options: ' + JSON.stringify(options));
-    //const scan = await navigator.bluetooth.requestLEScan(options);
-  const scan = await navigator.bluetooth.requestLEScan({
-  filters: [{manufacturerData: {0x004C: {dataPrefix: new Uint8Array([
-    0x02, 0x15, // iBeacon identifier.
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15  // My beacon UUID.
-  ])}}}],
-  keepRepeatedDevices: true
-  })
+    const scan = await navigator.bluetooth.requestLEScan(options);
+
+    log('Scan started with:');
     log(' acceptAllAdvertisements: ' + scan.acceptAllAdvertisements);
     log(' active: ' + scan.active);
     log(' keepRepeatedDevices: ' + scan.keepRepeatedDevices);
