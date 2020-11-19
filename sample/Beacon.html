@@ -1,0 +1,95 @@
+<!doctype html>
+<!--
+Copyright 2017-2020 JellyWare Inc. All Rights Reserved.
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="BlueJelly">
+    <meta name="viewport" content="width=640, maximum-scale=1.0, user-scalable=yes">
+    <title>BlueJelly</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="bluejelly.js"></script>
+  </head>
+
+<body>
+<h1></h1>
+<div class="container">
+    <div class="title margin">
+        <p id="title">BlueJelly Sample</p>
+        <p id="subtitle">Hello, BLE</p>
+    </div>
+
+    <div class="contents margin">
+        <button id="scan" class="button">Scan</button>
+        <hr>
+        <div id="device_name"> </div>
+    </div>
+    <div class="footer margin">
+        For more information, see <a href="https://jellyware.jp/kurage" target="_blank">jellyware.jp</a> and <a href="https://github.com/electricbaka/bluejelly" target="_blank">GitHub</a> !
+    </div>
+</div>
+<script>
+//--------------------------------------------------
+//Global変数
+//--------------------------------------------------
+//BlueJellyのインスタンス生成
+const ble = new BlueJelly();
+
+
+//--------------------------------------------------
+//ロード時の処理
+//--------------------------------------------------
+//window.onload = function () {
+  //UUIDの設定
+//  ble.setUUID("UUID1",   "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000");
+//}
+
+
+//--------------------------------------------------
+//Scan後の処理
+//--------------------------------------------------
+ble.onScan = function (deviceName) {
+  document.getElementById('device_name').innerHTML = deviceName;
+}
+
+
+//-------------------------------------------------
+//ボタンが押された時のイベント登録
+//--------------------------------------------------
+document.getElementById('scan').addEventListener('click', function() {
+      //ble.scan('UUID1');
+      navigator.bluetooth.requestLEScan({
+      	filters: [{
+      		manufacturerData: {
+      			0x004C: {
+      				dataPrefix: new Uint8Array([
+      					0x02, 0x15, // iBeacon identifier.
+      					0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 // My beacon UUID.
+      				])
+      			}
+      		}
+      	}],
+      	keepRepeatedDevices: true
+      }).then(() => {
+      	navigator.bluetooth.addEventListener('advertisementreceived', event => {
+      		let appleData = event.manufacturerData.get(0x004C);
+      		if (appleData.byteLength != 23) {
+      			// Isn’t an iBeacon.
+      			return;
+      		}
+      		let major = appleData.getUint16(18, false);
+      		let minor = appleData.getUint16(20, false);
+      		let txPowerAt1m = -appleData.getInt8(22);
+      		let pathLossVs1m = txPowerAt1m - event.rssi;
+      		recordNearbyBeacon(major, minor, pathLossVs1m);
+      	});
+      })
+});
+
+
+</script>
+</body>
+</html>
