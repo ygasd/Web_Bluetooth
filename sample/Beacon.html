@@ -63,7 +63,7 @@ document.getElementById('scan').addEventListener('click', function() {
       //ble.scan('UUID1');
       var known_service = "00000000-0000-0000-0000-000000000001";
       navigator.bluetooth.requestLEScan({
-      	filters: [{services: [known_service]}]
+      	filters: [{services: [known_service]}],
       	keepRepeatedDevices: true
       }).then(() => {
       	navigator.bluetooth.addEventListener('advertisementreceived', event => {
