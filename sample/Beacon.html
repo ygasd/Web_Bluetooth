@@ -62,22 +62,52 @@ Copyright 2017-2020 JellyWare Inc. All Rights Reserved.
 document.getElementById('scan').addEventListener('click', function() {
       //ble.scan('UUID1');
       var known_service = "00000000-0000-0000-0000-000000000001";
-      navigator.bluetooth.requestLEScan({
-      	filters: [{services: [known_service]}],
-      	keepRepeatedDevices: true
-      }).then(() => {
-      	navigator.bluetooth.addEventListener('advertisementreceived', event => {
-      		let appleData = event.manufacturerData.get(0x004C);
-      		if (appleData.byteLength != 23) {
+return navigator.bluetooth.requestDevice({
+	filters: [{
+		services: [known_service]
+	}]
+}).then(device => {
+	device.watchAdvertisements();
+	device.addEventListener('advertisementreceived', interpretIBeacon);
+});
+
+function interpretIBeacon(event) {
+	var rssi = event.rssi;
+	var appleData = event.manufacturerData.get(0x004C);
+	if (appleData.byteLength != 23 || appleData.getUint16(0, false) !== 0x0215) {
+		console.log({
+			isBeacon: false
+		});
+	}
+	var uuidArray = new Uint8Array(appleData.buffer, 2, 16);
+	var major = appleData.getUint16(18, false);
+	var minor = appleData.getUint16(20, false);
+	var txPowerAt1m = -appleData.getInt8(22);
+	console.log({
+		isBeacon: true,
+		uuidArray,
+		major,
+		minor,
+		pathLossVs1m: txPowerAt1m - rssi
+	});
+});
+  //    var known_service = "00000000-0000-0000-0000-000000000001";
+  //    navigator.bluetooth.requestLEScan({
+  //    	filters: [{services: [known_service]}],
+  //    	keepRepeatedDevices: true
+  //    }).then(() => {
+  //    	navigator.bluetooth.addEventListener('advertisementreceived', event => {
+  //    		let appleData = event.manufacturerData.get(0x004C);
+  //    		if (appleData.byteLength != 23) {
       			// Isn’t an iBeacon.
-      			return;
-      		}
-      		let major = appleData.getUint16(18, false);
-      		let minor = appleData.getUint16(20, false);
-      		let txPowerAt1m = -appleData.getInt8(22);
-      		let pathLossVs1m = txPowerAt1m - event.rssi;
-      	});
-      })
+  //    			return;
+  //    		}
+  //    		let major = appleData.getUint16(18, false);
+  //    		let minor = appleData.getUint16(20, false);
+  //    		let txPowerAt1m = -appleData.getInt8(22);
+  //    		let pathLossVs1m = txPowerAt1m - event.rssi;
+  //    	});
+  //    })
 });
 
 
