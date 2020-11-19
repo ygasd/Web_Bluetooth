@@ -36,7 +36,7 @@ Copyright 2017-2020 JellyWare Inc. All Rights Reserved.
 //Global変数
 //--------------------------------------------------
 //BlueJellyのインスタンス生成
-const ble = new BlueJelly();
+//const ble = new BlueJelly();
 
 
 //--------------------------------------------------
@@ -51,9 +51,9 @@ const ble = new BlueJelly();
 //--------------------------------------------------
 //Scan後の処理
 //--------------------------------------------------
-ble.onScan = function (deviceName) {
-  document.getElementById('device_name').innerHTML = deviceName;
-}
+//ble.onScan = function (deviceName) {
+//  document.getElementById('device_name').innerHTML = deviceName;
+//}
 
 
 //-------------------------------------------------
@@ -84,7 +84,6 @@ document.getElementById('scan').addEventListener('click', function() {
       		let minor = appleData.getUint16(20, false);
       		let txPowerAt1m = -appleData.getInt8(22);
       		let pathLossVs1m = txPowerAt1m - event.rssi;
-      		recordNearbyBeacon(major, minor, pathLossVs1m);
       	});
       })
 });
