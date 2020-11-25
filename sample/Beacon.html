@@ -61,10 +61,10 @@ Copyright 2017-2020 JellyWare Inc. All Rights Reserved.
 //--------------------------------------------------
 document.getElementById('scan').addEventListener('click', function() {
       //ble.scan('UUID1');
-      let ble_name = "R1beacon";
+      let ble_name = "testbeacon";
       navigator.bluetooth.requestLEScan({
         filters: [
-          {manufacturerData: [0x004C]}],
+          {name: ble_name}],
       	keepRepeatedDevices: true
       }).then(() => {
       	navigator.bluetooth.addEventListener('advertisementreceived', event => {
