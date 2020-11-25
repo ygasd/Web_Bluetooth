@@ -67,7 +67,7 @@ document.getElementById('scan').addEventListener('click', function() {
       let beacon_identifier1 = 0x02;
       let beacon_identifier2 = 0x15;
       navigator.bluetooth.requestLEScan({
-        filters: [{manufacturerData: apple},
+        filters: [{manufacturerData: apple}],
       	keepRepeatedDevices: true
       }).then(() => {
       	navigator.bluetooth.addEventListener('advertisementreceived', event => {
