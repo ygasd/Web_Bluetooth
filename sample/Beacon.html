@@ -67,7 +67,7 @@ document.getElementById('scan').addEventListener('click', function() {
       let beacon_identifier1 = 0x02;
       let beacon_identifier2 = 0x15;
       navigator.bluetooth.requestLEScan({
-        filters: [{manufacturerData: {0x004C}},
+        filters: [{manufacturerData: 0x004C},
         {dataPrefix: new Uint8Array([0x02, 0x15 // iBeacon identifier.
   ])}],
       	keepRepeatedDevices: true
