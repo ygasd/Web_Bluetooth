@@ -65,7 +65,9 @@ document.getElementById('scan').addEventListener('click', function() {
       let ble_uuid = "7240660c-64d1-42c3-aa48-df9798066f18";
       navigator.bluetooth.requestLEScan({
         filters: [
-          {serviceData: ble_uuid}],
+          filters: [{manufacturerData: {0x004C: {dataPrefix: new Uint8Array([
+    0x02, 0x15, // iBeacon identifier.
+  ])}}}],
       	keepRepeatedDevices: true
       }).then(() => {
       	navigator.bluetooth.addEventListener('advertisementreceived', event => {
